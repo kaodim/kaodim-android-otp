@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fonts -->
+    <style name="font_roboto_regular" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_regular_font</item>
+    </style>
+
+    <style name="font_roboto_thin" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_thin_font</item>
+    </style>
+
+    <style name="font_roboto_light" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_light_font</item>
+    </style>
+
+    <style name="font_roboto_bold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_bold_font</item>
+    </style>
+
+    <style name="font_roboto_black" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black_font</item>
+    </style>
+</resources>

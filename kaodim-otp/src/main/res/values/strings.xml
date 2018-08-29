@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">kaodim-otp</string>
+
+    <!--OTP-->
+    <string name="next">Next</string>
+    <string name="verify_your_phone_number">Verify your phone number</string>
+    <string name="enter_the_code">Enter the 6-digit code sent to you at</string>
+    <string name="resend_code_in">Resend code in</string>
+    <string name="verify_number">Verify number</string>
+    <string name="resend_code">Resend code</string>
+    <string name="change_your_number">Change your number</string>
+    <string name="this_is_as_part_of_our_effort">This is as part of our effort to provide a safe and secure service, we will send you a 6-digit code for verification.</string>
+    <string name="enter_mobile_number">Enter mobile number</string>
+    <string name="profile_verification">Profile verification</string>
+    <string name="_continue">Continue</string>
+
 </resources>
