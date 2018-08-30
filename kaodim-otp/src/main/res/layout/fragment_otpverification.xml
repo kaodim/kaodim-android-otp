@@ -70,7 +70,7 @@
 
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <com.kaodim.kaodimvendorapp.helpers.KaodimPinEntryEditText
+                <com.kaodim.kaodim_otp_library.helpers.KaodimPinEntryEditText
                     android:id="@+id/etOTPInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,11 +83,22 @@
                     android:textSize="34sp"
                     app:pinAnimationType="fromBottom" />
 
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="5dp"
+                    android:gravity="end"
+                    android:text=""
+                    android:textColor="@color/jasper"
+                    android:textSize="@dimen/size_12" />
+
                 <LinearLayout
                     android:id="@+id/llResendCounterPanel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="25dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -149,8 +160,8 @@
         <View
             android:id="@+id/viewShadow"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@drawable/shadow_bg_90" />
+            android:layout_height="1dp"
+            android:background="@color/kdl_grey" />
 
         <Button
             android:id="@+id/btnVerify"

@@ -6,4 +6,6 @@ public interface OTPVerificationViewInterface {
     void updateResetCounterText(String value);
     void onOTPRequested();
     void onOTPFilled();
+    void displayError(String errorMessage);
+    void hideError();
 }

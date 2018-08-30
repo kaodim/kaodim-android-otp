@@ -75,8 +75,8 @@
         <View
             android:id="@+id/viewShadow"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@drawable/shadow_bg_90" />
+            android:layout_height="1dp"
+            android:background="@color/kdl_grey" />
 
         <Button
             android:id="@+id/btnNext"

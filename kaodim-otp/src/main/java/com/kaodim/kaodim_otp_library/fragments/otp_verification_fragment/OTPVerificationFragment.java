@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.kaodim.design.components.toast.ToastBanner;
 import com.kaodim.kaodim_otp_library.R;
 import com.kaodim.kaodim_otp_library.helpers.KaodimPinEntryEditText;
@@ -30,6 +29,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     RelativeLayout rlProgressView;
     LinearLayout topMessage;
     TextView tvChangeNumber;
+    TextView tvError;
 
     private static final String ARG_MOBILE_NUMBER = "mobileNumber";
     private static final String ARG_OTP_EVENT_TYPE = "otp_event_type";
@@ -44,6 +44,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
 
     public interface OTPVerificationListener {
         void onOTPResendRequested();
+        void onOTPVerifyRequested(String code);
     }
 
     public OTPVerificationFragment() {
@@ -83,12 +84,15 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         rlProgressView = view.findViewById(R.id.rlProgressView);
         topMessage = view.findViewById(R.id.lvTopMessage);
         tvChangeNumber = view.findViewById(R.id.tvChangeNumber);
+        tvError = view.findViewById(R.id.tvError);
 
         presenter = new OTPVerificationPresenter(this);
 
         setEvents();
 
         setData();
+
+        onOTPRequested();
 
         return view;
     }
@@ -149,6 +153,8 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(listener != null)
+                    listener.onOTPVerifyRequested(etOTPInput.getText().toString());
 //                presenter.verifyOTP(etOTPInput.getText().toString(), otpEvent, mobileNumber, getDeviceId());
             }
         });
@@ -229,12 +235,21 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         }
     }
 
+    @Override
     public void displayError(String errorMessage) {
         hideProgress();
 
         displayResendCode();
 
-        ToastBanner.getInstance().showErrorAlert(topMessage, getActivity(),errorMessage,ToastBanner.AUTODISMISS_LENGTH);
+        tvError.setVisibility(View.VISIBLE);
+
+        tvError.setText(errorMessage);
+    }
+
+    @Override
+    public void hideError() {
+        tvError.setVisibility(View.GONE);
+        tvError.setText("");
     }
 
 }
