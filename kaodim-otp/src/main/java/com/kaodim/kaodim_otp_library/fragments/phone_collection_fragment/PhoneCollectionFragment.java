@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,14 +100,19 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
         setupCountryCodes();
 
-        if (listener != null)
-            listener.onFragmentReady();
-
-        etMobileNumber.initialize(context, countryCodes);
+        presenter.setCountryFormat(countryName);
 
         etMobileNumber.setMobileInputEventListener(this);
 
+        if (listener != null)
+            listener.onFragmentReady();
+
         return view;
+    }
+
+    @Override
+    public void onCountryFormatReady(String countryISOCode) {
+        etMobileNumber.initialize(context, countryCodes, countryISOCode, mobileNumber);
     }
 
     private void setEvents() {
@@ -172,6 +178,11 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         btnNext.setEnabled(false);
     }
 
+    @Override
+    public void setMobileNumber(String mobileNumber) {
+        onMobileValueChanged(countryCode, mobileNumber, etMobileNumber.checkValidity());
+    }
+
     public void hideKeyboard(Activity activity) {
         View view = activity.findViewById(android.R.id.content);
         if (view != null) {
@@ -187,23 +198,32 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
     @Override
     public void onCountrySelected(CountryCodeRowItem item) {
+        switch (item.code) {
+            case "+60":
+                etMobileNumber.setValidationCountry("MY");
+                break;
+            case "+65":
+                etMobileNumber.setValidationCountry("SG");
+                break;
+        }
+
         if (listener != null)
             listener.onNumberChanged(item.code, mobileNumber);
     }
 
     @Override
-    public void onMobileValueChanged(String countryCode, String value) {
-        presenter.validateInput(value);
+    public void onMobileValueChanged(String countryCode, String value, boolean isValidNumber) {
+        presenter.validateInput(value, isValidNumber);
         this.mobileNumber = value;
         if (listener != null)
             listener.onNumberChanged(countryCode, mobileNumber);
     }
 
     public void showProgress() {
-        rlProgressView.setVisibility(View.VISIBLE);
+
     }
 
     public void hideProgress() {
-        rlProgressView.setVisibility(View.GONE);
+
     }
 }

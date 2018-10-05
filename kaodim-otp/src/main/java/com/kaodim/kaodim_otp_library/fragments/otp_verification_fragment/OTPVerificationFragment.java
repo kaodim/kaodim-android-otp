@@ -4,8 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kaodim.design.components.toast.ToastBanner;
 import com.kaodim.kaodim_otp_library.R;
 import com.kaodim.kaodim_otp_library.helpers.KaodimPinEntryEditText;
 
@@ -30,30 +31,43 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     LinearLayout topMessage;
     TextView tvChangeNumber;
     TextView tvError;
+    TextView tvTitle;
+    private CountDownTimer countDownTimer;
 
+    private static final String ARG_FRAGMENT_TITLE = "fragmentTitle";
+    private static final String ARG_FRAGMENT_SUBTITLE = "fragmentSubtitle";
     private static final String ARG_MOBILE_NUMBER = "mobileNumber";
     private static final String ARG_OTP_EVENT_TYPE = "otp_event_type";
 
-    private int counter = 30;
     private OTPVerificationPresenter presenter;
     private Context context;
     private String mobileNumber;
     private OTPVerificationListener listener;
     private String otpEvent;
     private String packageName;
+    private String fragmentTitle = "";
+    private String fragmentSubtitle = "";
+    private int counter = 30;
 
     public interface OTPVerificationListener {
+        void onFragmentReady();
+
         void onOTPResendRequested();
+
         void onOTPVerifyRequested(String code);
+
+        void onChangeNumberRequested();
     }
 
     public OTPVerificationFragment() {
         // Required empty public constructor
     }
 
-    public static OTPVerificationFragment newInstance(String otpEvent, String mobileNumber, boolean requestOnStartup) {
+    public static OTPVerificationFragment newInstance(String fragmentTitle, String fragmentSubtitle, String otpEvent, String mobileNumber, boolean requestOnStartup) {
         OTPVerificationFragment fragment = new OTPVerificationFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_FRAGMENT_TITLE, fragmentTitle);
+        args.putString(ARG_FRAGMENT_SUBTITLE, fragmentSubtitle);
         args.putString(ARG_OTP_EVENT_TYPE, otpEvent);
         args.putString(ARG_MOBILE_NUMBER, mobileNumber);
         fragment.setArguments(args);
@@ -64,6 +78,8 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            fragmentTitle = getArguments().getString(ARG_FRAGMENT_TITLE);
+            fragmentSubtitle = getArguments().getString(ARG_FRAGMENT_SUBTITLE);
             mobileNumber = getArguments().getString(ARG_MOBILE_NUMBER);
             otpEvent = getArguments().getString(ARG_OTP_EVENT_TYPE);
         }
@@ -85,6 +101,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         topMessage = view.findViewById(R.id.lvTopMessage);
         tvChangeNumber = view.findViewById(R.id.tvChangeNumber);
         tvError = view.findViewById(R.id.tvError);
+        tvTitle = view.findViewById(R.id.tvTitle);
 
         presenter = new OTPVerificationPresenter(this);
 
@@ -92,7 +109,8 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
 
         setData();
 
-        onOTPRequested();
+        if (listener != null)
+            listener.onFragmentReady();
 
         return view;
     }
@@ -100,19 +118,15 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     public void setCode(String otpCode) {
         if (otpCode != null) {
             etOTPInput.setText(otpCode);
+            counter = 0;
+            countDownTimer.cancel();
+            displayResendCode();
         }
     }
 
     private void setData() {
-        tvMobileNumber.setText(getActivity().getString(R.string.enter_the_code) + " " + mobileNumber);
-
-//        if (requestOnStartup) {
-//            //parent activity has not requested OTP. Fragment will request for OTP
-//            requestOTP();
-//        } else {
-//            //parent activity has requested OTP. Counter will be started
-//            resetCounter();
-//        }
+        tvTitle.setText(fragmentTitle);
+        tvMobileNumber.setText(fragmentSubtitle);
     }
 
     private void showProgress() {
@@ -128,6 +142,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         llResendPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideResendCode();
                 requestOTP();
             }
         });
@@ -153,7 +168,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener != null)
+                if (listener != null)
                     listener.onOTPVerifyRequested(etOTPInput.getText().toString());
 //                presenter.verifyOTP(etOTPInput.getText().toString(), otpEvent, mobileNumber, getDeviceId());
             }
@@ -162,29 +177,34 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         tvChangeNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                if (listener != null)
+                    listener.onChangeNumberRequested();
             }
         });
     }
 
     private void requestOTP() {
         showProgress();
+        Log.d("KAODEVBUG", "Showing progress");
         listener.onOTPResendRequested();
     }
 
     private void resetCounter() {
-        new CountDownTimer(30000, 1000) {
+        counter = 31;
+        countDownTimer = new CountDownTimer(30000, 1000) {
             public void onTick(long millisUntilFinished) {
                 hideResendCode();
-
-                presenter.updateResetCounter(counter);
 
                 if (counter > 0) {
                     counter--;
                 }
+
+                presenter.updateResetCounter(counter);
             }
 
             public void onFinish() {
+                counter = 0;
+                countDownTimer.cancel();
                 displayResendCode();
             }
         }.start();
@@ -193,6 +213,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     private void hideResendCode() {
         llResendCounterPanel.setVisibility(View.VISIBLE);
         llResendPanel.setVisibility(View.GONE);
+
     }
 
     private void displayResendCode() {

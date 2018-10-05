@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <ScrollView
@@ -23,8 +24,8 @@
                 android:orientation="vertical"
                 android:paddingBottom="20dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:paddingTop="0dp">
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
 
                 <TextView
                     android:id="@+id/tvViewTitle"
@@ -34,7 +35,7 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/verify_your_phone_number"
                     android:textColor="@color/dark_blue"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/size_16" />
 
                 <TextView
                     android:id="@+id/tvViewDescription"

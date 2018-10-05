@@ -34,13 +34,14 @@
                 android:paddingTop="10dp">
 
                 <TextView
+                    android:id="@+id/tvTitle"
                     style="@style/font_roboto_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/verify_your_phone_number"
                     android:textColor="@color/dark_blue"
-                    android:textSize="20sp" />
+                    android:textSize="@dimen/size_16" />
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="wrap_content"

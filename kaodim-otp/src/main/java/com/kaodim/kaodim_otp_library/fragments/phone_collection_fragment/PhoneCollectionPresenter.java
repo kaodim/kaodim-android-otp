@@ -10,11 +10,31 @@ public class PhoneCollectionPresenter implements PhoneCollectionPresenterInterfa
     }
 
     @Override
-    public void validateInput(String mobileNumber) {
-        if (mobileNumber.length() > 0) {
+    public void validateInput(String mobileNumber, boolean isValidNumber) {
+        if (mobileNumber.length() > 0 && isValidNumber) {
             view.enableLoginButton();
         } else {
             view.disableLoginButton();
         }
+    }
+
+    @Override
+    public void setCountryFormat(String country) {
+        String countryISOCode = "";
+        switch(country) {
+            case "Malaysia":
+                countryISOCode = "MY";
+                break;
+            case "Singapore":
+                countryISOCode = "SG";
+                break;
+            case "Indonesia":
+                countryISOCode = "ID";
+                break;
+            case "Philippines":
+                countryISOCode = "PH";
+                break;
+        }
+        view.onCountryFormatReady(countryISOCode);
     }
 }
