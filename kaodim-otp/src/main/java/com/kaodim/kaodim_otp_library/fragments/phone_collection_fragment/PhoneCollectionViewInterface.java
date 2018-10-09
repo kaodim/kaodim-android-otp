@@ -8,4 +8,6 @@ public interface PhoneCollectionViewInterface {
     void setMobileNumber(String mobileNumber);
 
     void onCountryFormatReady(String countryISOCode);
+
+    String getMobileNumber();
 }
