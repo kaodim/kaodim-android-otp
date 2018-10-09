@@ -33,7 +33,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     private static final String ARG_COUNTRY_NAME_TEXT = "countryName";
     private static final String ARG_FLAVOR_TEXT = "flavor";
     private String mobileNumber;
-    PhoneCollectionPresenter presenter;
+    public PhoneCollectionPresenter presenter;
     PhoneDataCollectionListener listener;
     private String titleText = "";
     private String descriptionText = "";
@@ -41,6 +41,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     Context context;
     String countryName, flavor, countryCode;
     ArrayList<CountryCodeRowItem> countryCodes = new ArrayList<>();
+    public boolean valid = false;
 
     public interface PhoneDataCollectionListener {
         void onFragmentReady();
@@ -50,6 +51,8 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         void onBackButtonPress();
 
         void onNumberChanged(String countryCode, String mobileNumber);
+
+        void getPhoneFormatIsValid(String phoneNumber);
     }
 
     public PhoneCollectionFragment() {
@@ -180,7 +183,13 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
     @Override
     public void setMobileNumber(String mobileNumber) {
-        onMobileValueChanged(countryCode, mobileNumber, etMobileNumber.checkValidity());
+        //boolean value is just a dummy value, is not being used
+        onMobileValueChanged(countryCode, mobileNumber, false);
+    }
+
+    @Override
+    public String getMobileNumber() {
+        return etMobileNumber.getText();
     }
 
     public void hideKeyboard(Activity activity) {
@@ -212,12 +221,20 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     }
 
     @Override
-    public void onMobileValueChanged(String countryCode, String value, boolean isValidNumber) {
-        presenter.validateInput(value, isValidNumber);
+    public void onMobileValueChanged(String countryCode, String value, boolean b) {
+        disableLoginButton();
         this.mobileNumber = value;
-        if (listener != null)
+        if (listener != null){
             listener.onNumberChanged(countryCode, mobileNumber);
+        }
+
+        //uses the API validation from the activity
+        if (listener != null)
+            Log.d("REGEXTEST", "VALIDATE PHONE : " + mobileNumber);
+            listener.getPhoneFormatIsValid(mobileNumber);
+
     }
+
 
     public void showProgress() {
 
