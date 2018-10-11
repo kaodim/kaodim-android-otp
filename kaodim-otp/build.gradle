@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.android:flexbox:1.0.0'
 
 //    implementation project(path: ':kaodimdesign')
+    
     implementation 'com.github.kaodim:android-design:1.0.8'
 
 }
