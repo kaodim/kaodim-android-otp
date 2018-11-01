@@ -40,6 +40,6 @@ dependencies {
 
 //    implementation project(path: ':kaodimdesign')
     
-    implementation 'com.github.kaodim:android-design:1.0.8'
+    implementation 'com.github.kaodim:android-design:1.0.10'
 
 }

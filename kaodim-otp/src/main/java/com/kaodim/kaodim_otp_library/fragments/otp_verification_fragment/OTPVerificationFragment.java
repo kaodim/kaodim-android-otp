@@ -38,6 +38,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     private static final String ARG_FRAGMENT_SUBTITLE = "fragmentSubtitle";
     private static final String ARG_MOBILE_NUMBER = "mobileNumber";
     private static final String ARG_OTP_EVENT_TYPE = "otp_event_type";
+    private static final String ARG_ALLOW_NUMBER_CHANGE = "allow_number_change";
 
     private OTPVerificationPresenter presenter;
     private Context context;
@@ -47,6 +48,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     private String packageName;
     private String fragmentTitle = "";
     private String fragmentSubtitle = "";
+    private boolean allowNumberChange = false;
     private int counter = 30;
 
     public interface OTPVerificationListener {
@@ -63,13 +65,14 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         // Required empty public constructor
     }
 
-    public static OTPVerificationFragment newInstance(String fragmentTitle, String fragmentSubtitle, String otpEvent, String mobileNumber, boolean requestOnStartup) {
+    public static OTPVerificationFragment newInstance(String fragmentTitle, String fragmentSubtitle, String otpEvent, String mobileNumber, boolean requestOnStartup, boolean allowNumberChange) {
         OTPVerificationFragment fragment = new OTPVerificationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_FRAGMENT_TITLE, fragmentTitle);
         args.putString(ARG_FRAGMENT_SUBTITLE, fragmentSubtitle);
         args.putString(ARG_OTP_EVENT_TYPE, otpEvent);
         args.putString(ARG_MOBILE_NUMBER, mobileNumber);
+        args.putBoolean(ARG_ALLOW_NUMBER_CHANGE, allowNumberChange);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,6 +85,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
             fragmentSubtitle = getArguments().getString(ARG_FRAGMENT_SUBTITLE);
             mobileNumber = getArguments().getString(ARG_MOBILE_NUMBER);
             otpEvent = getArguments().getString(ARG_OTP_EVENT_TYPE);
+            allowNumberChange = getArguments().getBoolean(ARG_ALLOW_NUMBER_CHANGE);
         }
     }
 
@@ -102,6 +106,13 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         tvChangeNumber = view.findViewById(R.id.tvChangeNumber);
         tvError = view.findViewById(R.id.tvError);
         tvTitle = view.findViewById(R.id.tvTitle);
+
+        if(otpEvent.equals("sign_up")) {
+            tvTitle.setVisibility(View.VISIBLE);
+        }
+        else {
+            tvTitle.setVisibility(View.GONE);
+        }
 
         presenter = new OTPVerificationPresenter(this);
 
@@ -124,9 +135,17 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         }
     }
 
+    public void clearInput() {
+        etOTPInput.setText("");
+    }
+
     private void setData() {
         tvTitle.setText(fragmentTitle);
         tvMobileNumber.setText(fragmentSubtitle);
+
+        if(!allowNumberChange) {
+            tvChangeNumber.setVisibility(View.GONE);
+        }
     }
 
     private void showProgress() {

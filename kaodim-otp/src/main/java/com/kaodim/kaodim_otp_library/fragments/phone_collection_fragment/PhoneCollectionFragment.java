@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     RelativeLayout rlProgressView;
     Button btnNext;
 
+    private static final String ARG_ENABLE_SELECTION = "enableSelection";
     private static final String ARG_MOBILE_NUMBER = "mobileNumber";
     private static final String ARG_TITLE_TEXT = "titleText";
     private static final String ARG_DESCRIPTION_TEXT = "descriptionText";
@@ -152,6 +152,9 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         if (flavor.contains("gawin")) {
             countryCodes.add(new CountryCodeRowItem("(+63)", R.drawable.ic_flag_ph));
         }
+
+        //setting malaysia as the default selection to avoid null pointer
+        onCountrySelected(countryCodes.get(0));
     }
 
     @Override
@@ -183,6 +186,10 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
     @Override
     public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+
+        etMobileNumber.setText(mobileNumber);
+
         //boolean value is just a dummy value, is not being used
         onMobileValueChanged(countryCode, mobileNumber, false);
     }
@@ -216,6 +223,9 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
                 break;
         }
 
+        //update the current country code
+        countryCode = item.code;
+
         if (listener != null)
             listener.onNumberChanged(item.code, mobileNumber);
     }
@@ -224,15 +234,14 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     public void onMobileValueChanged(String countryCode, String value, boolean b) {
         disableLoginButton();
         this.mobileNumber = value;
-        if (listener != null){
+
+        if (listener != null) {
             listener.onNumberChanged(countryCode, mobileNumber);
         }
 
         //uses the API validation from the activity
         if (listener != null)
-            Log.d("REGEXTEST", "VALIDATE PHONE : " + mobileNumber);
             listener.getPhoneFormatIsValid(mobileNumber);
-
     }
 
 
@@ -243,4 +252,27 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     public void hideProgress() {
 
     }
+
+    /**
+     * To be used when the country selection should be disabled and instead set a fixed choice
+     */
+    public void setFixedCountry(String countryCode) {
+        etMobileNumber.setEnableSelection(false);
+
+        switch (countryCode) {
+            case "MY":
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+60)", R.drawable.ic_flag_my));
+                break;
+            case "SG":
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+65)", R.drawable.ic_flag_sg));
+                break;
+            case "ID":
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+62)", R.drawable.ic_flag_id));
+                break;
+            case "PH":
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+63)", R.drawable.ic_flag_ph));
+                break;
+        }
+    }
+
 }
