@@ -38,10 +38,12 @@
                     style="@style/font_roboto_light"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/verify_your_phone_number"
                     android:textColor="@color/dark_blue"
-                    android:textSize="@dimen/size_16" />
+                    android:textSize="@dimen/size_20" />
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="wrap_content"
@@ -52,19 +54,21 @@
 
                     <TextView
                         android:id="@+id/tvMobileNumber"
-                        style="@style/font_roboto_regular"
+                        style="@style/font_roboto_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/enter_the_code"
-                        android:textColor="@color/dark_blue"
-                        android:textSize="@dimen/size_14" />
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:text=""
+                        android:textColor="@color/blackpearl"
+                        android:textSize="@dimen/size_20" />
 
                     <TextView
                         android:id="@+id/tvChangeNumber"
                         style="@style/font_roboto_regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:text="@string/change_your_number"
                         android:textColor="@color/app_light_blue"
                         android:textSize="@dimen/size_14" />
@@ -99,7 +103,7 @@
                     android:id="@+id/llResendCounterPanel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView

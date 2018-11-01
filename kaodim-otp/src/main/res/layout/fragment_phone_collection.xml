@@ -35,7 +35,7 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/verify_your_phone_number"
                     android:textColor="@color/dark_blue"
-                    android:textSize="@dimen/size_16" />
+                    android:textSize="@dimen/size_20" />
 
                 <TextView
                     android:id="@+id/tvViewDescription"
