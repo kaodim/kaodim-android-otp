@@ -32,12 +32,15 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     private static final String ARG_HINT_TITLE_TEXT = "hintTitle";
     private static final String ARG_COUNTRY_NAME_TEXT = "countryName";
     private static final String ARG_FLAVOR_TEXT = "flavor";
+    private static final String ARG_BUTTON_TEXT = "buttonText";
+
     private String mobileNumber;
     public PhoneCollectionPresenter presenter;
     PhoneDataCollectionListener listener;
     private String titleText = "";
     private String descriptionText = "";
     private String hintTitle = "";
+    private String buttonText = "";
     Context context;
     String countryName, flavor, countryCode;
     ArrayList<CountryCodeRowItem> countryCodes = new ArrayList<>();
@@ -59,13 +62,14 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         // Required empty public constructor
     }
 
-    public static PhoneCollectionFragment newInstance(String mobileNumber, String titleText, String descriptionText, String hintTitle, String countryName, String flavor) {
+    public static PhoneCollectionFragment newInstance(String mobileNumber, String titleText, String descriptionText, String hintTitle, String buttonText, String countryName, String flavor) {
         PhoneCollectionFragment fragment = new PhoneCollectionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_MOBILE_NUMBER, mobileNumber);
         args.putString(ARG_TITLE_TEXT, titleText);
         args.putString(ARG_DESCRIPTION_TEXT, descriptionText);
         args.putString(ARG_HINT_TITLE_TEXT, hintTitle);
+        args.putString(ARG_BUTTON_TEXT, buttonText);
         args.putString(ARG_COUNTRY_NAME_TEXT, countryName);
         args.putString(ARG_FLAVOR_TEXT, flavor);
         fragment.setArguments(args);
@@ -80,6 +84,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
             titleText = getArguments().getString(ARG_TITLE_TEXT);
             descriptionText = getArguments().getString(ARG_DESCRIPTION_TEXT);
             hintTitle = getArguments().getString(ARG_HINT_TITLE_TEXT);
+            buttonText = getArguments().getString(ARG_BUTTON_TEXT);
             countryName = getArguments().getString(ARG_COUNTRY_NAME_TEXT);
             flavor = getArguments().getString(ARG_FLAVOR_TEXT);
         }
@@ -130,6 +135,9 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
         if (!hintTitle.equals(""))
             etMobileNumber.setHintTitle(hintTitle);
+
+        if(!buttonText.equals(""))
+            btnNext.setText(buttonText);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

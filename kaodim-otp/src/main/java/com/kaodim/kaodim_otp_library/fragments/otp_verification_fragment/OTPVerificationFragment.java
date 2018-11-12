@@ -39,6 +39,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     private static final String ARG_MOBILE_NUMBER = "mobileNumber";
     private static final String ARG_OTP_EVENT_TYPE = "otp_event_type";
     private static final String ARG_ALLOW_NUMBER_CHANGE = "allow_number_change";
+    private static final String ARG_BUTTON_TEXT = "buttonText";
 
     private OTPVerificationPresenter presenter;
     private Context context;
@@ -48,6 +49,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     private String packageName;
     private String fragmentTitle = "";
     private String fragmentSubtitle = "";
+    private String buttonText = "";
     private boolean allowNumberChange = false;
     private int counter = 30;
 
@@ -65,13 +67,14 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
         // Required empty public constructor
     }
 
-    public static OTPVerificationFragment newInstance(String fragmentTitle, String fragmentSubtitle, String otpEvent, String mobileNumber, boolean requestOnStartup, boolean allowNumberChange) {
+    public static OTPVerificationFragment newInstance(String fragmentTitle, String fragmentSubtitle, String otpEvent, String mobileNumber, String buttonText, boolean requestOnStartup, boolean allowNumberChange) {
         OTPVerificationFragment fragment = new OTPVerificationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_FRAGMENT_TITLE, fragmentTitle);
         args.putString(ARG_FRAGMENT_SUBTITLE, fragmentSubtitle);
         args.putString(ARG_OTP_EVENT_TYPE, otpEvent);
         args.putString(ARG_MOBILE_NUMBER, mobileNumber);
+        args.putString(ARG_BUTTON_TEXT, buttonText);
         args.putBoolean(ARG_ALLOW_NUMBER_CHANGE, allowNumberChange);
         fragment.setArguments(args);
         return fragment;
@@ -84,6 +87,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
             fragmentTitle = getArguments().getString(ARG_FRAGMENT_TITLE);
             fragmentSubtitle = getArguments().getString(ARG_FRAGMENT_SUBTITLE);
             mobileNumber = getArguments().getString(ARG_MOBILE_NUMBER);
+            buttonText = getArguments().getString(ARG_BUTTON_TEXT);
             otpEvent = getArguments().getString(ARG_OTP_EVENT_TYPE);
             allowNumberChange = getArguments().getBoolean(ARG_ALLOW_NUMBER_CHANGE);
         }
@@ -142,6 +146,7 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     private void setData() {
         tvTitle.setText(fragmentTitle);
         tvMobileNumber.setText(fragmentSubtitle);
+        btnVerify.setText(buttonText);
 
         if(!allowNumberChange) {
             tvChangeNumber.setVisibility(View.GONE);
