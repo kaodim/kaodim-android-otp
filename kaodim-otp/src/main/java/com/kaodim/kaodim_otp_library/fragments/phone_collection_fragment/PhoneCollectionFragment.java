@@ -168,18 +168,26 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof PhoneDataCollectionListener) {
-            listener = (PhoneDataCollectionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement PhoneDataCollectionListener");
-        }
+//        if (context instanceof PhoneDataCollectionListener) {
+//            listener = (PhoneDataCollectionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement PhoneDataCollectionListener");
+//        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        listener = null;
+//        listener = null;
+    }
+
+    public void setListener(PhoneDataCollectionListener listener) {
+        this.listener = listener;
+    }
+
+    public void clearListener(){
+        this.listener = null;
     }
 
     @Override
