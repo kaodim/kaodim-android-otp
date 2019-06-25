@@ -3,6 +3,8 @@ package com.kaodim.kaodim_otp_library.fragments.otp_verification_fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -275,9 +277,22 @@ public class OTPVerificationFragment extends Fragment implements OTPVerification
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OTPVerificationListener) {
-            listener = (OTPVerificationListener) context;
-        }
+//        if (context instanceof OTPVerificationListener) {
+//            listener = (OTPVerificationListener) context;
+//        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    public void setListener(OTPVerificationListener listener) {
+        this.listener = listener;
+    }
+
+    public void clearListener(){
+        this.listener = null;
     }
 
     @Override
