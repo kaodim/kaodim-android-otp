@@ -7,9 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.kaodim.kaodim_otp_library.R
-import com.kaodim.kaodim_otp_library.helpers.KaodimPinEntryEditText
 import kotlinx.android.synthetic.main.fragment_new_otp_verification.*
 
 class OTPVerificationFragment : Fragment() {
@@ -25,15 +23,19 @@ class OTPVerificationFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view: View = inflater.inflate(R.layout.fragment_new_otp_verification, container, false)
-        setEvents()
-        listener?.onFragmentReady()
-        return view
+        return inflater.inflate(R.layout.fragment_new_otp_verification, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setEvents()
+        listener?.onFragmentReady()
+    }
+
+
     private fun setEvents() {
-        tvResendCode.setOnClickListener { v: View? -> requestOTP() }
-        tvResendCodeViaCall.setOnClickListener { v: View? -> requestOTPViaPhone() }
+        tvResendCode.setOnClickListener { requestOTP() }
+        tvResendCodeViaCall.setOnClickListener { requestOTPViaPhone() }
         etOTPInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
@@ -45,7 +47,7 @@ class OTPVerificationFragment : Fragment() {
                 }
             }
         })
-        tvChangeNumber.setOnClickListener { v: View? -> changeNumberRequested() }
+        tvChangeNumber.setOnClickListener { changeNumberRequested() }
     }
 
     private fun changeNumberRequested() {

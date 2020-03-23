@@ -1,119 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvVerifying"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="42dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginTop="36dp"
+                android:textAlignment="center"
+                android:textColor="@color/text_black"
+                android:textSize="16sp"
+                android:visibility="visible"
+                tools:text = "Verifying +60 163314187"/>
+
+            <TextView
+                android:id="@+id/tvChangeNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="42dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/kaodim_blue"
+                android:clickable="true"
+                android:focusable="true"
+                android:background = "?attr/selectableItemBackground"
+                android:textSize="15sp"
+                android:visibility="visible" />
+
+            <com.kaodim.kaodim_otp_library.helpers.KaodimPinEntryEditText
+                android:id="@+id/etOTPInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="64dp"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textIsSelectable="false"
+                android:layout_marginStart="56dp"
+                android:layout_marginEnd="56dp"
+                android:textSize="36sp"
+                app:pinLineColors = "@color/pin_entry_state_list"
+                app:pinCharacterSpacing = "16dp"
+                app:pinAnimationType="fromBottom" />
 
-                <TextView
-                    android:id="@+id/tvVerifying"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginRight="42dp"
-                    android:layout_marginTop="36dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/text_black"
-                    android:textSize="16sp"
-                    android:visibility="visible"
-                    tools:text = "Verifying +60 163314187"/>
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="56dp"
+                android:layout_marginEnd="56dp"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:lineSpacingExtra="5sp"
+                android:textColor="#cc1616"
+                android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/tvChangeNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="42dp"
-                    android:layout_marginRight="42dp"
-                    android:layout_marginTop="8dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/kaodim_blue"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background = "?attr/selectableItemBackground"
-                    android:textSize="15sp"
-                    android:visibility="visible"
-                    android:text = "@string/edit_phone_number"/>
+            <TextView
+                android:id="@+id/tvResendTimeRemaining"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginTop="36dp"
+                android:textAlignment="center"
+                android:textColor="@color/kdl_grey_medium"
+                android:textSize="16sp" />
 
-                <com.kaodim.kaodim_otp_library.helpers.KaodimPinEntryEditText
-                    android:id="@+id/etOTPInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="64dp"
-                    android:cursorVisible="false"
-                    android:digits="1234567890"
-                    android:inputType="number"
-                    android:maxLength="6"
-                    android:textIsSelectable="false"
-                    android:layout_marginStart="56dp"
-                    android:layout_marginEnd="56dp"
-                    android:textSize="36sp"
-                    app:pinLineColors = "@color/pin_entry_state_list"
-                    app:pinCharacterSpacing = "16dp"
-                    app:pinAnimationType="fromBottom" />
+            <TextView
+                android:id="@+id/tvResendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="36dp"
+                android:textAlignment="center"
+                android:text="@string/resend_code"
+                android:background = "?attr/selectableItemBackground"
+                android:textColor="@color/kaodim_blue"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4sp"/>
 
-                <TextView
-                    android:id="@+id/tvError"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="56dp"
-                    android:layout_marginEnd="56dp"
-                    android:layout_marginTop="8dp"
-                    android:textAlignment="center"
-                    android:lineSpacingExtra="5sp"
-                    android:textColor="#cc1616"
-                    android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tvResendCodeViaCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:textAlignment="center"
+                android:background = "?attr/selectableItemBackground"
+                android:textColor="@color/kaodim_blue"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4sp"/>
 
-                <TextView
-                    android:id="@+id/tvResendTimeRemaining"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginEnd="64dp"
-                    android:layout_marginTop="36dp"
-                    android:textAlignment="center"
-                    android:textColor="@color/kdl_grey_medium"
-                    android:textSize="16sp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvResendCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="36dp"
-                    android:textAlignment="center"
-                    android:text="@string/resend_code"
-                    android:background = "?attr/selectableItemBackground"
-                    android:textColor="@color/kaodim_blue"
-                    android:textSize="16sp"
-                    android:lineSpacingExtra="4sp"/>
+    </ScrollView>
 
-                <TextView
-                    android:id="@+id/tvResendCodeViaCall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="24dp"
-                    android:textAlignment="center"
-                    android:background = "?attr/selectableItemBackground"
-                    android:textColor="@color/kaodim_blue"
-                    android:textSize="16sp"
-                    android:lineSpacingExtra="4sp"/>
+</RelativeLayout>
 
-            </LinearLayout>
-
-        </ScrollView>
-
-    </RelativeLayout>
-</layout>
