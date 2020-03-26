@@ -114,6 +114,10 @@ class OTPVerificationFragment : Fragment() {
         tvResendTimeRemaining.visibility = visibility
     }
 
+    fun setChangeNumberVisibility(visibility: Int) {
+        tvChangeNumber.visibility = visibility
+    }
+
     companion object {
         fun newInstance(): OTPVerificationFragment {
             val fragment = OTPVerificationFragment()
