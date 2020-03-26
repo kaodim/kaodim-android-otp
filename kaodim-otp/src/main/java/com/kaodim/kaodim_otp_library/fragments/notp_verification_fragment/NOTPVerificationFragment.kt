@@ -75,7 +75,10 @@ class NOTPVerificationFragment : Fragment() {
         tvEditPhoneNumber.text = text
     }
 
-
+    fun setEditNumberVisibility(visible: Int) {
+        tvEditPhoneNumber.visibility = visible
+    }
+    
     fun setErrorVisibility(visible: Int) {
         tvNotpErrorMessage.visibility = visible
     }
