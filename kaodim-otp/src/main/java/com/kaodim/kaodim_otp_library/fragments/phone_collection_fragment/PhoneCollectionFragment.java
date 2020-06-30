@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,8 +21,9 @@ import java.util.ArrayList;
 
 public class PhoneCollectionFragment extends Fragment implements MobileInputLayout.MobileInputEventListener, PhoneCollectionViewInterface {
 
-    TextView tvViewTitle, tvViewDescription;
+    TextView tvViewTitle, tvViewDescription, tvInfo;
     MobileInputLayout etMobileNumber;
+    LinearLayout llPhoneCollectionInfo;
     RelativeLayout rlProgressView;
     Button btnNext;
 
@@ -32,6 +34,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     private static final String ARG_HINT_TITLE_TEXT = "hintTitle";
     private static final String ARG_COUNTRY_NAME_TEXT = "countryName";
     private static final String ARG_FLAVOR_TEXT = "flavor";
+    private static final String ARG_INFO ="info";
     private static final String ARG_BUTTON_TEXT = "buttonText";
 
     private String mobileNumber;
@@ -41,6 +44,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     private String descriptionText = "";
     private String hintTitle = "";
     private String buttonText = "";
+    private String infoText = "";
     Context context;
     String countryName, flavor, countryCode;
     ArrayList<CountryCodeRowItem> countryCodes = new ArrayList<>();
@@ -62,7 +66,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         // Required empty public constructor
     }
 
-    public static PhoneCollectionFragment newInstance(String mobileNumber, String titleText, String descriptionText, String hintTitle, String buttonText, String countryName, String flavor) {
+    public static PhoneCollectionFragment newInstance(String mobileNumber, String titleText, String descriptionText, String hintTitle, String buttonText, String countryName, String flavor, String info) {
         PhoneCollectionFragment fragment = new PhoneCollectionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_MOBILE_NUMBER, mobileNumber);
@@ -72,6 +76,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         args.putString(ARG_BUTTON_TEXT, buttonText);
         args.putString(ARG_COUNTRY_NAME_TEXT, countryName);
         args.putString(ARG_FLAVOR_TEXT, flavor);
+        args.putString(ARG_INFO, info);
         fragment.setArguments(args);
         return fragment;
     }
@@ -87,6 +92,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
             buttonText = getArguments().getString(ARG_BUTTON_TEXT);
             countryName = getArguments().getString(ARG_COUNTRY_NAME_TEXT);
             flavor = getArguments().getString(ARG_FLAVOR_TEXT);
+            infoText = getArguments().getString(ARG_INFO);
         }
     }
 
@@ -100,7 +106,9 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         tvViewDescription = view.findViewById(R.id.tvViewDescription);
         btnNext = view.findViewById(R.id.btnNext);
         etMobileNumber = view.findViewById(R.id.etMobileNumber);
+        llPhoneCollectionInfo = view.findViewById(R.id.llPhoneCollectionInfo);
         rlProgressView = view.findViewById(R.id.rlProgressView);
+        tvInfo = view.findViewById(R.id.tvPhoneCollectionInfo);
 
         presenter = new PhoneCollectionPresenter(this);
 
@@ -138,6 +146,14 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
         if(!buttonText.equals(""))
             btnNext.setText(buttonText);
+
+        if(!infoText.equals("")) {
+            llPhoneCollectionInfo.setVisibility(View.VISIBLE);
+            tvInfo.setText(buttonText);
+        } else {
+            llPhoneCollectionInfo.setVisibility(View.GONE);
+
+        }
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
