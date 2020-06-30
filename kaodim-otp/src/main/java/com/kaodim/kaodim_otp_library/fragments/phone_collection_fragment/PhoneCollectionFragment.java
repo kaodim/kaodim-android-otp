@@ -149,7 +149,7 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
         if(!infoText.equals("")) {
             llPhoneCollectionInfo.setVisibility(View.VISIBLE);
-            tvInfo.setText(buttonText);
+            tvInfo.setText(infoText);
         } else {
             llPhoneCollectionInfo.setVisibility(View.GONE);
 
