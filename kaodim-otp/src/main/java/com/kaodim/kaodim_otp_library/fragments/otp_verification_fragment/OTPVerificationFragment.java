@@ -3,10 +3,6 @@ package com.kaodim.kaodim_otp_library.fragments.otp_verification_fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +13,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.kaodim.kaodim_otp_library.R;
 import com.kaodim.kaodim_otp_library.helpers.KaodimPinEntryEditText;

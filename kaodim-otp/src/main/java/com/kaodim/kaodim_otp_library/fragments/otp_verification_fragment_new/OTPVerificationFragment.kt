@@ -1,12 +1,12 @@
 package com.kaodim.kaodim_otp_library.fragments.otp_verification_fragment_new
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.kaodim.kaodim_otp_library.R
 import kotlinx.android.synthetic.main.fragment_new_otp_verification.*
 

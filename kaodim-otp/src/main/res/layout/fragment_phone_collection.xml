@@ -24,8 +24,7 @@
                 android:orientation="vertical"
                 android:paddingBottom="20dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp">
+                android:paddingRight="20dp">
 
                 <TextView
                     android:id="@+id/tvViewTitle"
@@ -35,7 +34,8 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/verify_your_phone_number"
                     android:textColor="@color/dark_blue"
-                    android:textSize="@dimen/size_20" />
+                    android:textSize="@dimen/size_20"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvViewDescription"
@@ -44,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textColor="@color/dark_blue"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -58,6 +59,7 @@
 
                 <com.kaodim.design.components.MobileInputLayout
                     android:id="@+id/etMobileNumber"
+                    android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 
@@ -81,8 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:id="@+id/tvPhoneCollectionInfo"
-                        tools:text="@string/verify_your_phone_number"/> d
-
+                        tools:text="@string/verify_your_phone_number"/>
                 </LinearLayout>
 
             </RelativeLayout>

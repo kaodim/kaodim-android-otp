@@ -1,8 +1,9 @@
 package com.kaodim.kaodim_android_otp;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.kaodim.kaodim_otp_library.fragments.otp_verification_fragment_new.OTPVerificationFragment;
 
