@@ -3,7 +3,6 @@ package com.kaodim.kaodim_otp_library.fragments.phone_collection_fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import androidx.fragment.app.Fragment;
 import com.kaodim.design.components.MobileInputLayout;
 import com.kaodim.design.components.models.CountryCodeRowItem;
 import com.kaodim.kaodim_otp_library.R;
@@ -109,7 +108,6 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
         llPhoneCollectionInfo = view.findViewById(R.id.llPhoneCollectionInfo);
         rlProgressView = view.findViewById(R.id.rlProgressView);
         tvInfo = view.findViewById(R.id.tvPhoneCollectionInfo);
-
         presenter = new PhoneCollectionPresenter(this);
 
         setEvents();
@@ -118,6 +116,8 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
 
         presenter.setCountryFormat(countryName);
 
+        etMobileNumber.requestFocus();
+        etMobileNumber.setEnableSelection(false);
         etMobileNumber.setMobileInputEventListener(this);
 
         if (listener != null)
@@ -167,14 +167,14 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
     private void setupCountryCodes() {
         countryCodes.clear();
         if (flavor.contains("kaodim")) {
-            countryCodes.add(new CountryCodeRowItem("(+60)", R.drawable.ic_flag_my));
-            countryCodes.add(new CountryCodeRowItem("(+65)", R.drawable.ic_flag_sg));
+            countryCodes.add(new CountryCodeRowItem("+60", R.drawable.ic_flag_my));
+            countryCodes.add(new CountryCodeRowItem("+65", R.drawable.ic_flag_sg));
         }
         if (flavor.contains("beres")) {
-            countryCodes.add(new CountryCodeRowItem("(+62)", R.drawable.ic_flag_id));
+            countryCodes.add(new CountryCodeRowItem("+62", R.drawable.ic_flag_id));
         }
         if (flavor.contains("gawin")) {
-            countryCodes.add(new CountryCodeRowItem("(+63)", R.drawable.ic_flag_ph));
+            countryCodes.add(new CountryCodeRowItem("+63", R.drawable.ic_flag_ph));
         }
 
         //setting malaysia as the default selection to avoid null pointer
@@ -289,20 +289,19 @@ public class PhoneCollectionFragment extends Fragment implements MobileInputLayo
      * To be used when the country selection should be disabled and instead set a fixed choice
      */
     public void setFixedCountry(String countryCode) {
-        etMobileNumber.setEnableSelection(false);
 
         switch (countryCode) {
             case "MY":
-                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+60)", R.drawable.ic_flag_my));
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("+60", R.drawable.ic_flag_my));
                 break;
             case "SG":
-                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+65)", R.drawable.ic_flag_sg));
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("+65", R.drawable.ic_flag_sg));
                 break;
             case "ID":
-                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+62)", R.drawable.ic_flag_id));
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("+62", R.drawable.ic_flag_id));
                 break;
             case "PH":
-                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("(+63)", R.drawable.ic_flag_ph));
+                etMobileNumber.setValidationCountry(countryCode, new CountryCodeRowItem("+63", R.drawable.ic_flag_ph));
                 break;
         }
     }

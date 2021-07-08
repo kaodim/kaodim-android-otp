@@ -1,14 +1,15 @@
 package com.kaodim.kaodim_otp_library.fragments.notp_verification_fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.kaodim.kaodim_otp_library.R
 import kotlinx.android.synthetic.main.fragment_notp_verification.*
+
 
 class NOTPVerificationFragment : Fragment() {
     var listener: NOTPVerificationListener? = null
@@ -43,7 +44,7 @@ class NOTPVerificationFragment : Fragment() {
 
     private fun setupUI() {
         val target = DrawableImageViewTarget(ivHeader)
-        Glide.with(this)
+        Glide.with(requireContext())
                 .load(R.drawable.ripple_animation)
                 .into(target)
 
